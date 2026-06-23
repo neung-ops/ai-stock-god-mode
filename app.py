@@ -339,7 +339,7 @@ fig = make_subplots(rows=n_rows, cols=1, shared_xaxes=True,
 fig.add_trace(go.Candlestick(x=df.index, open=df['Open'], high=df['High'],
     low=df['Low'], close=df['Close'], name='OHLC',
     increasing_line_color='#00cc66', decreasing_line_color='#ff4466',
-    increasing_fillcolor='#00cc6622', decreasing_fillcolor='#ff446622'), row=1, col=1)
+    increasing_fillcolor='rgba(0,204,102,0.13)', decreasing_fillcolor='rgba(255,68,102,0.13)'), row=1, col=1)
 
 if show_bb and 'BB_Upper' in df.columns:
     fig.add_trace(go.Scatter(x=df.index, y=df['BB_Upper'], name='BB Upper',
@@ -379,12 +379,12 @@ if prediction:
         showarrow=False, font=dict(color='#00d4ff', size=13, family='IBM Plex Mono'), xanchor='left')
 
 fig.add_trace(go.Bar(x=df.index, y=df['MACD_Hist'], name='MACD Hist',
-    marker_color=np.where(df['MACD_Hist'] >= 0, '#00cc6688', '#ff446688')), row=2, col=1)
+    marker_color=np.where(df['MACD_Hist'] >= 0, 'rgba(0,204,102,0.53)', 'rgba(255,68,102,0.53)')), row=2, col=1)
 fig.add_trace(go.Scatter(x=df.index, y=df['MACD'],        name='MACD',   line=dict(color='#00d4ff', width=1.5)), row=2, col=1)
 fig.add_trace(go.Scatter(x=df.index, y=df['MACD_Signal'], name='Signal', line=dict(color='#ff9900', width=1.5)), row=2, col=1)
 
 if show_vol:
-    colors = ['#00cc6666' if df['Close'].iloc[i] >= df['Open'].iloc[i] else '#ff446666' for i in range(len(df))]
+    colors = ['rgba(0,204,102,0.4)' if df['Close'].iloc[i] >= df['Open'].iloc[i] else 'rgba(255,68,102,0.4)' for i in range(len(df))]
     fig.add_trace(go.Bar(x=df.index, y=df['Volume'], name='Volume', marker_color=colors, showlegend=False), row=3, col=1)
     fig.add_trace(go.Scatter(x=df.index, y=df['Vol_MA20'], name='Vol MA20', line=dict(color='#8888ff', width=1.2)), row=3, col=1)
 
@@ -436,7 +436,7 @@ with mid:
             'axis': {'range': [0, 100], 'tickcolor': '#4a6080', 'tickfont': {'size': 10}},
             'bar':  {'color': '#00d4ff', 'thickness': 0.22},
             'bgcolor': '#0d1117', 'bordercolor': '#1e2530',
-            'steps': [{'range': [0,60],'color':'#ff446622'},{'range':[60,80],'color':'#ffcc4422'},{'range':[80,100],'color':'#00cc6622'}],
+            'steps': [{'range': [0,60],'color':'rgba(255,68,102,0.13)'},{'range':[60,80],'color':'rgba(255,204,68,0.13)'},{'range':[80,100],'color':'rgba(0,204,102,0.13)'}],
             'threshold': {'line': {'color': '#00ff88', 'width': 2}, 'value': accuracy}
         }))
     gauge.update_layout(paper_bgcolor='#0d1117', plot_bgcolor='#0d1117',
@@ -482,13 +482,13 @@ with tab1:
         vertical_spacing=0.06, subplot_titles=["RSI (9 / 14)", "Stochastic (14,3)"])
     rsi_fig.add_trace(go.Scatter(x=df.index, y=df['RSI'],   name='RSI 14', line=dict(color='#ff9900', width=1.8)), row=1, col=1)
     rsi_fig.add_trace(go.Scatter(x=df.index, y=df['RSI_9'], name='RSI 9',  line=dict(color='#ffcc44', width=1.2, dash='dot')), row=1, col=1)
-    rsi_fig.add_hline(y=70, line_dash='dash', line_color='#ff446688', row=1, col=1)
-    rsi_fig.add_hline(y=30, line_dash='dash', line_color='#00cc6688', row=1, col=1)
-    rsi_fig.add_hrect(y0=30, y1=70, fillcolor='#ffffff08', line_width=0, row=1, col=1)
+    rsi_fig.add_hline(y=70, line_dash='dash', line_color='rgba(255,68,102,0.53)', row=1, col=1)
+    rsi_fig.add_hline(y=30, line_dash='dash', line_color='rgba(0,204,102,0.53)', row=1, col=1)
+    rsi_fig.add_hrect(y0=30, y1=70, fillcolor='rgba(255,255,255,0.03)', line_width=0, row=1, col=1)
     rsi_fig.add_trace(go.Scatter(x=df.index, y=df['STOCH_K'], name='Stoch %K', line=dict(color='#00d4ff', width=1.5)), row=2, col=1)
     rsi_fig.add_trace(go.Scatter(x=df.index, y=df['STOCH_D'], name='Stoch %D', line=dict(color='#aa88ff', width=1.2, dash='dot')), row=2, col=1)
-    rsi_fig.add_hline(y=80, line_dash='dash', line_color='#ff446666', row=2, col=1)
-    rsi_fig.add_hline(y=20, line_dash='dash', line_color='#00cc6666', row=2, col=1)
+    rsi_fig.add_hline(y=80, line_dash='dash', line_color='rgba(255,68,102,0.4)', row=2, col=1)
+    rsi_fig.add_hline(y=20, line_dash='dash', line_color='rgba(0,204,102,0.4)', row=2, col=1)
     rsi_fig.update_layout(template='plotly_dark', paper_bgcolor='#080c14', plot_bgcolor='#080c14',
         height=380, margin=dict(l=0,r=0,t=30,b=0), font=dict(family='IBM Plex Mono', color='#7a90a8', size=11))
     st.plotly_chart(rsi_fig, use_container_width=True)
