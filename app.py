@@ -108,8 +108,15 @@ def load_data(symbol: str, days: int):
     df = yf.download(symbol, start=start, end=end, progress=False, auto_adjust=True)
     if df.empty:
         return None
+
+    # Flatten MultiIndex columns (yfinance new versions return MultiIndex)
     if isinstance(df.columns, pd.MultiIndex):
-        df.columns = df.columns.droplevel(1)
+        df.columns = [col[0] for col in df.columns]
+
+    # Force all OHLCV columns to plain float Series (fixes Plotly validation error)
+    for col in ['Open', 'High', 'Low', 'Close', 'Volume']:
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col].squeeze(), errors='coerce')
 
     close = df['Close']
     high  = df['High']
