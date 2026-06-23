@@ -101,12 +101,23 @@ st.markdown(f"""
 # ─────────────────────────────────────────
 # DATA LOADING
 # ─────────────────────────────────────────
+def _download_with_retry(symbol, start, end, retries=3):
+    """Retry yfinance download — prevents caching a transient failure."""
+    for _ in range(retries):
+        try:
+            df = yf.download(symbol, start=start, end=end, progress=False, auto_adjust=True)
+            if not df.empty:
+                return df
+        except Exception:
+            pass
+    return None
+
 @st.cache_data(ttl=1800)
 def load_data(symbol: str, days: int):
     end   = datetime.now()
     start = end - timedelta(days=days + 80)
-    df = yf.download(symbol, start=start, end=end, progress=False, auto_adjust=True)
-    if df.empty:
+    df = _download_with_retry(symbol, start, end)
+    if df is None or df.empty:
         return None
 
     # Flatten MultiIndex columns (yfinance new versions return MultiIndex)
@@ -259,7 +270,11 @@ with st.spinner(f"Loading {ticker}..."):
     info = get_info(ticker)
 
 if df is None or len(df) < 50:
-    st.error("❌ ไม่พบข้อมูลหุ้น หรือข้อมูลน้อยเกินไป กรุณาตรวจสอบ Ticker")
+    st.error(f"❌ ไม่พบข้อมูลหุ้น **{ticker}** — กรุณาตรวจสอบ Ticker Symbol (เช่น NVDA, AAPL, MSFT, AMD, TSLA)")
+    st.info("💡 หาก Ticker ถูกต้องแล้ว ให้กด **Clear cache** แล้วลองใหม่ หรือรอสักครู่แล้ว Refresh")
+    if st.button("🔄 Clear Cache & Retry"):
+        st.cache_data.clear()
+        st.rerun()
     st.stop()
 
 prediction, accuracy, fi_df, y_test, y_pred_test = build_and_predict(df, forecast_days, model_choice, n_estimators)
