@@ -60,8 +60,11 @@ st.markdown("""
   .tag-bear { background:#1a0009; color:#ff4466; }
   .tag-neut { background:#0d1000; color:#ccaa00; }
   .accuracy-bar { background: #0d1117; border: 1px solid #1e2530; border-radius: 8px; padding: 14px 18px; margin-top: 10px; }
-  #MainMenu, footer, header { visibility: hidden; }
+  #MainMenu { visibility: hidden; }
+  footer { visibility: hidden; }
   .stDeployButton { display: none; }
+  header { visibility: visible; background: transparent !important; }
+  header [data-testid="stToolbar"] { display: none; }
 </style>
 """, unsafe_allow_html=True)
 
