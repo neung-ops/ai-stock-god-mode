@@ -62,6 +62,22 @@ st.markdown("""
   .accuracy-bar { background: #0d1117; border: 1px solid #1e2530; border-radius: 8px; padding: 14px 18px; margin-top: 10px; }
   #MainMenu, footer, header { visibility: hidden; }
   .stDeployButton { display: none; }
+
+  /* Always-visible sidebar toggle button */
+  [data-testid="collapsedControl"] {
+    display: flex !important;
+    visibility: visible !important;
+    background: #0d1117 !important;
+    border: 1px solid #1e2530 !important;
+    border-radius: 0 8px 8px 0 !important;
+    width: 28px !important;
+    color: #00d4ff !important;
+    box-shadow: 2px 0 8px rgba(0,212,255,0.15) !important;
+  }
+  [data-testid="collapsedControl"]:hover {
+    background: #1a2d4a !important;
+    border-color: #00d4ff !important;
+  }
 </style>
 """, unsafe_allow_html=True)
 
