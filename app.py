@@ -63,10 +63,7 @@ st.markdown("""
   #MainMenu { visibility: hidden; }
   footer { visibility: hidden; }
   .stDeployButton { display: none; }
-  header[data-testid="stHeader"] { background: #080c14 !important; border-bottom: 1px solid #1e2530 !important; color: #ffffff !important; }
-  header[data-testid="stHeader"] svg { fill: #ffffff !important; }
-  header[data-testid="stHeader"] button { color: #ffffff !important; }
-  header[data-testid="stHeader"] a { color: #ffffff !important; }
+  header[data-testid="stHeader"] { background: #080c14 !important; border-bottom: 1px solid #1e2530 !important; }
 </style>
 """, unsafe_allow_html=True)
 
