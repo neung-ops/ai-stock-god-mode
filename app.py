@@ -533,5 +533,5 @@ with tab2:
 st.markdown("""
 <div style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:0.62rem;color:#2a3a4a;padding:16px 0;border-top:1px solid #131820;margin-top:24px">
   ⚠️ FOR INFORMATIONAL PURPOSES ONLY · NOT FINANCIAL ADVICE · AI predictions carry inherent uncertainty<br>
-  Data: Yahoo Finance · Models: Scikit-learn · Charts: Plotly
+  Data: Yahoo Finance · Models: Scikit-learn · Charts: Plotly · <a href="https://drive.google.com/file/d/1FY6U9B4SPcE6XwVNEvNCj0sVdnULX_PN/view?usp=sharing" target="_blank" style="color:#4a9abb;text-decoration:none;font-weight:600">📖 User Guide</a>
 </div>""", unsafe_allow_html=True)
