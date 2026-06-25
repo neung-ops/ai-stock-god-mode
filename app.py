@@ -60,11 +60,8 @@ st.markdown("""
   .tag-bear { background:#1a0009; color:#ff4466; }
   .tag-neut { background:#0d1000; color:#ccaa00; }
   .accuracy-bar { background: #0d1117; border: 1px solid #1e2530; border-radius: 8px; padding: 14px 18px; margin-top: 10px; }
-  #MainMenu { visibility: hidden; }
-  footer { visibility: hidden; }
+  #MainMenu, footer, header { visibility: hidden; }
   .stDeployButton { display: none; }
-  header { visibility: visible; background: transparent !important; }
-  header [data-testid="stToolbar"] { display: none; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -536,5 +533,5 @@ with tab2:
 st.markdown("""
 <div style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:0.62rem;color:#2a3a4a;padding:16px 0;border-top:1px solid #131820;margin-top:24px">
   ⚠️ FOR INFORMATIONAL PURPOSES ONLY · NOT FINANCIAL ADVICE · AI predictions carry inherent uncertainty<br>
-  Data: Yahoo Finance · Models: Scikit-learn · Charts: Plotly · <a href="https://drive.google.com/file/d/1FY6U9B4SPcE6XwVNEvNCj0sVdnULX_PN/view?usp=sharing" target="_blank" style="color:#4a9abb;text-decoration:none;font-weight:600">📖 User Guide</a>
+  Data: Yahoo Finance · Models: Scikit-learn · Charts: Plotly
 </div>""", unsafe_allow_html=True)
